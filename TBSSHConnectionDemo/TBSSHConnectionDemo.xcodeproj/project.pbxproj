@@ -1,0 +1,325 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A792BDF817479D9F00F96F47 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A792BDF717479D9F00F96F47 /* Cocoa.framework */; };
+		A792BE0217479D9F00F96F47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A792BE0017479D9F00F96F47 /* InfoPlist.strings */; };
+		A792BE0417479D9F00F96F47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A792BE0317479D9F00F96F47 /* main.m */; };
+		A792BE0817479D9F00F96F47 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A792BE0617479D9F00F96F47 /* Credits.rtf */; };
+		A792BE0B17479D9F00F96F47 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A792BE0A17479D9F00F96F47 /* TBAppDelegate.m */; };
+		A792BE0E17479DA000F96F47 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A792BE0C17479DA000F96F47 /* MainMenu.xib */; };
+		A792BE1717479DFA00F96F47 /* TBSSHConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A792BE1617479DFA00F96F47 /* TBSSHConnection.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A792BDF417479D9F00F96F47 /* TBSSHConnectionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBSSHConnectionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A792BDF717479D9F00F96F47 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		A792BDFA17479D9F00F96F47 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		A792BDFB17479D9F00F96F47 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A792BDFC17479D9F00F96F47 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A792BDFF17479D9F00F96F47 /* TBSSHConnectionDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBSSHConnectionDemo-Info.plist"; sourceTree = "<group>"; };
+		A792BE0117479D9F00F96F47 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A792BE0317479D9F00F96F47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A792BE0517479D9F00F96F47 /* TBSSHConnectionDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TBSSHConnectionDemo-Prefix.pch"; sourceTree = "<group>"; };
+		A792BE0717479D9F00F96F47 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		A792BE0917479D9F00F96F47 /* TBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
+		A792BE0A17479D9F00F96F47 /* TBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
+		A792BE0D17479DA000F96F47 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A792BE1517479DFA00F96F47 /* TBSSHConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSSHConnection.h; sourceTree = "<group>"; };
+		A792BE1617479DFA00F96F47 /* TBSSHConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSSHConnection.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A792BDF117479D9F00F96F47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A792BDF817479D9F00F96F47 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A792BDEB17479D9F00F96F47 = {
+			isa = PBXGroup;
+			children = (
+				A792BE1417479DFA00F96F47 /* TBSSHConnection */,
+				A792BDFD17479D9F00F96F47 /* TBSSHConnectionDemo */,
+				A792BDF617479D9F00F96F47 /* Frameworks */,
+				A792BDF517479D9F00F96F47 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A792BDF517479D9F00F96F47 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A792BDF417479D9F00F96F47 /* TBSSHConnectionDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A792BDF617479D9F00F96F47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A792BDF717479D9F00F96F47 /* Cocoa.framework */,
+				A792BDF917479D9F00F96F47 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A792BDF917479D9F00F96F47 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A792BDFA17479D9F00F96F47 /* AppKit.framework */,
+				A792BDFB17479D9F00F96F47 /* CoreData.framework */,
+				A792BDFC17479D9F00F96F47 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		A792BDFD17479D9F00F96F47 /* TBSSHConnectionDemo */ = {
+			isa = PBXGroup;
+			children = (
+				A792BE0917479D9F00F96F47 /* TBAppDelegate.h */,
+				A792BE0A17479D9F00F96F47 /* TBAppDelegate.m */,
+				A792BE0C17479DA000F96F47 /* MainMenu.xib */,
+				A792BDFE17479D9F00F96F47 /* Supporting Files */,
+			);
+			path = TBSSHConnectionDemo;
+			sourceTree = "<group>";
+		};
+		A792BDFE17479D9F00F96F47 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A792BDFF17479D9F00F96F47 /* TBSSHConnectionDemo-Info.plist */,
+				A792BE0017479D9F00F96F47 /* InfoPlist.strings */,
+				A792BE0317479D9F00F96F47 /* main.m */,
+				A792BE0517479D9F00F96F47 /* TBSSHConnectionDemo-Prefix.pch */,
+				A792BE0617479D9F00F96F47 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A792BE1417479DFA00F96F47 /* TBSSHConnection */ = {
+			isa = PBXGroup;
+			children = (
+				A792BE1517479DFA00F96F47 /* TBSSHConnection.h */,
+				A792BE1617479DFA00F96F47 /* TBSSHConnection.m */,
+			);
+			path = TBSSHConnection;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A792BDF317479D9F00F96F47 /* TBSSHConnectionDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A792BE1117479DA000F96F47 /* Build configuration list for PBXNativeTarget "TBSSHConnectionDemo" */;
+			buildPhases = (
+				A792BDF017479D9F00F96F47 /* Sources */,
+				A792BDF117479D9F00F96F47 /* Frameworks */,
+				A792BDF217479D9F00F96F47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TBSSHConnectionDemo;
+			productName = TBSSHConnectionDemo;
+			productReference = A792BDF417479D9F00F96F47 /* TBSSHConnectionDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A792BDEC17479D9F00F96F47 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TB;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = tanB;
+			};
+			buildConfigurationList = A792BDEF17479D9F00F96F47 /* Build configuration list for PBXProject "TBSSHConnectionDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A792BDEB17479D9F00F96F47;
+			productRefGroup = A792BDF517479D9F00F96F47 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A792BDF317479D9F00F96F47 /* TBSSHConnectionDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A792BDF217479D9F00F96F47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A792BE0217479D9F00F96F47 /* InfoPlist.strings in Resources */,
+				A792BE0817479D9F00F96F47 /* Credits.rtf in Resources */,
+				A792BE0E17479DA000F96F47 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A792BDF017479D9F00F96F47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A792BE0417479D9F00F96F47 /* main.m in Sources */,
+				A792BE0B17479D9F00F96F47 /* TBAppDelegate.m in Sources */,
+				A792BE1717479DFA00F96F47 /* TBSSHConnection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A792BE0017479D9F00F96F47 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A792BE0117479D9F00F96F47 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A792BE0617479D9F00F96F47 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A792BE0717479D9F00F96F47 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		A792BE0C17479DA000F96F47 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A792BE0D17479DA000F96F47 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A792BE0F17479DA000F96F47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A792BE1017479DA000F96F47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A792BE1217479DA000F96F47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TBSSHConnectionDemo/TBSSHConnectionDemo-Prefix.pch";
+				INFOPLIST_FILE = "TBSSHConnectionDemo/TBSSHConnectionDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A792BE1317479DA000F96F47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TBSSHConnectionDemo/TBSSHConnectionDemo-Prefix.pch";
+				INFOPLIST_FILE = "TBSSHConnectionDemo/TBSSHConnectionDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A792BDEF17479D9F00F96F47 /* Build configuration list for PBXProject "TBSSHConnectionDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A792BE0F17479DA000F96F47 /* Debug */,
+				A792BE1017479DA000F96F47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A792BE1117479DA000F96F47 /* Build configuration list for PBXNativeTarget "TBSSHConnectionDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A792BE1217479DA000F96F47 /* Debug */,
+				A792BE1317479DA000F96F47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A792BDEC17479D9F00F96F47 /* Project object */;
+}
