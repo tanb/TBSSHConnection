@@ -14,6 +14,16 @@ TBSSHConnection *sshConnection =
 - Drag the `TBSSHConnection/` folder to your project (make sure you copy all files/folders)
 - `#import "TBSSHConnection.h"`
 
+## SSH Tunneling
+```objective-c
+TBSSHConnection *sshConnection = 
+    [[TBSSHConnection alloc] initWithUser:@"username" hostname:@"hostname" port:22];
+[sshConnection addLocalForwardWithSourcePort:80 destinationAddress:@"localhost" destinationPort:80];
+[sshConnection addLocalForwardWithSourcePort:8080 destinationAddress:@"localhost" destinationPort:8080];
+
+[sshConnection execute];
+```
+
 ## License
 Copyright (c) 2013 Tomonori Tanabe
 
