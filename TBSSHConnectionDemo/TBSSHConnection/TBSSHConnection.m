@@ -1,10 +1,10 @@
 //
 //  TBSSHConnection.m
-//  tanB
 //
-//  Created by tanB on 5/18/13.
-//  Copyright (c) 2013 tanB. All rights reserved.
+//  Created by Tomonori Tanabe on 5/18/13.
+//  Copyright (c) 2013 Tomonori Tanabe. All rights reserved.
 //
+//  https://github.com/tanB/TBSSHConnection
 
 #import "TBSSHConnection.h"
 
