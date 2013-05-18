@@ -80,6 +80,8 @@ static NSString * const TBSSHTunnelObjectKeyHostName = @"hostname";
     [args addObject:@"-t"];
     [args addObject:@"-p"];
     [args addObject:[NSString stringWithFormat:@"%ld", self.port]];
+    [args addObject:@"-l"];
+    [args addObject:self.user];
     
     return args;
 }
