@@ -30,6 +30,11 @@
                            selector:@selector(handleExitWithErrorNotification:)
                                name:TBSSHExitWithErrorNotification
                              object:nil];
+
+    [notificationCenter addObserver:self
+                           selector:@selector(handleReadLineCompletionNotification:)
+                               name:TBSSHReadLineCompletionNotification
+                             object:nil];
     
 }
 
@@ -38,6 +43,15 @@
     // This notification was sent if an instance of TBSSHConnection got a
     // situation that ssh exit with status code 255.
     NSLog(@"TBSSHConnection Exit: %@", notification.object);
+}
+
+- (void)handleReadLineCompletionNotification:(NSNotification *)notification
+{
+	NSData *data = [notification.userInfo valueForKey:NSFileHandleNotificationDataItem];
+	NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+	NSLog(@"%@", notification.object);
+    NSLog(@"%@", string);
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification

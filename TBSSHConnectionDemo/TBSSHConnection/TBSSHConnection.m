@@ -14,6 +14,7 @@ static NSString * const TBSSHTunnelObjectKeyDestinationAddress = @"destinationad
 static NSString * const TBSSHTunnelObjectKeyHostName = @"hostname";
 
 NSString * const TBSSHExitWithErrorNotification = @"TBSSHExitWithErrorNotification";
+NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletionNotification";
 
 @interface TBSSHConnection ()
 @property (nonatomic) NSString *user;
@@ -22,6 +23,7 @@ NSString * const TBSSHExitWithErrorNotification = @"TBSSHExitWithErrorNotificati
 @property (nonatomic) NSMutableArray *localForwards;
 @property (atomic) NSLock *lock;
 @property (nonatomic) NSTask *task;
+@property (nonatomic) NSPipe *pipe;
 @end
 
 @implementation TBSSHConnection
@@ -60,8 +62,38 @@ NSString * const TBSSHExitWithErrorNotification = @"TBSSHExitWithErrorNotificati
     self.localForwards = @[].mutableCopy;
     
     self.lock = nil;
-    self.task = nil;
+    self.pipe = [NSPipe new];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readData:)
+                                                 name:NSFileHandleReadCompletionNotification
+                                               object:nil];
+    [[self.pipe fileHandleForReading] readInBackgroundAndNotify];
+
+    self.task = [NSTask new];
+    [self.task setLaunchPath:@"/usr/bin/ssh"];
+    [self.task setStandardOutput:self.pipe];
+    [self.task setStandardError:self.pipe];
+
     return self;
+}
+
+- (void)readData:(NSNotification *)notification
+{
+    NSNotification *notice =
+    [NSNotification notificationWithName:TBSSHReadLineCompletionNotification
+                                  object:self
+                                userInfo:notification.userInfo];
+    [[NSNotificationCenter defaultCenter] postNotification:notice];
+    
+	if ([self.task isRunning]) {
+		[[self.pipe fileHandleForReading] readInBackgroundAndNotify];
+	}
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSArray *)arguments
@@ -97,15 +129,8 @@ NSString * const TBSSHExitWithErrorNotification = @"TBSSHExitWithErrorNotificati
 #endif
     }
     
-    self.task = [[NSTask alloc] init];
-#if DEBUG
-    [self.task setStandardOutput:[NSFileHandle fileHandleWithStandardOutput]];
-    [self.task setStandardError:[NSFileHandle fileHandleWithStandardError]];
-#else
-    [self.task setStandardOutput:[NSFileHandle fileHandleWithNullDevice]];
-    [self.task setStandardError:[NSFileHandle fileHandleWithNullDevice]];
-#endif
-    [self.task setLaunchPath:@"/usr/bin/ssh"];
+    if ([self isRunning]) [self terminate];
+    
     [self.task setArguments:self.arguments];
     
     dispatch_queue_t queue =
@@ -137,11 +162,8 @@ NSString * const TBSSHExitWithErrorNotification = @"TBSSHExitWithErrorNotificati
             NSNotification *notification =
             [NSNotification notificationWithName:TBSSHExitWithErrorNotification
                                           object:self];
-            
-            NSNotificationCenter *notificationCenter =
-            [NSNotificationCenter defaultCenter];
-            
-            [notificationCenter postNotification:notification];
+
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
         }
         [self.lock unlock];
     }
