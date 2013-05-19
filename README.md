@@ -24,6 +24,24 @@ TBSSHConnection *sshConnection =
 [sshConnection execute];
 ```
 
+## Notification
+### TBSSHExitWithErrorNotification
+This notification was sent if an instance of TBSSHConnection got a situation that ssh exit with status code 255.
+```objective-c
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(handleExitWithErrorNotification:)
+                               name:TBSSHExitWithErrorNotification
+                             object:nil];   
+}
+
+- (void)handleExitWithErrorNotification:(NSNotification *)notification
+{
+    // blah blah blah...
+}
+```
 ## License
 Copyright (c) 2013 Tomonori Tanabe
 
