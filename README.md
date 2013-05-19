@@ -26,7 +26,7 @@ TBSSHConnection *sshConnection =
 
 ## Notification
 ### TBSSHExitWithErrorNotification
-This notification was sent if an instance of TBSSHConnection got a situation that ssh exit with status code 255.
+This notification is posted if an instance of TBSSHConnection got a situation that ssh exit with status code 255.
 ```objective-c
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -39,6 +39,29 @@ This notification was sent if an instance of TBSSHConnection got a situation tha
 
 - (void)handleExitWithErrorNotification:(NSNotification *)notification
 {
+    NSLog(@"TBSSHConnection Exit: %@", notification.object);
+    // blah blah blah...
+}
+```
+### TBSSHReadLineCompletionNotification
+This notification is posted when an instance of TBSSHConnection reads the data currently available at its ssh connection channel.
+```objective-c
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(handleReadLineCompletionNotification:)
+                               name:TBSSHReadLineCompletionNotification
+                             object:nil]; 
+}
+
+- (void)handleReadLineCompletionNotification:(NSNotification *)notification
+{
+    NSData *data = [notification.userInfo valueForKey:NSFileHandleNotificationDataItem];
+	NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+	NSLog(@"%@", notification.object);
+    NSLog(@"%@", string);
     // blah blah blah...
 }
 ```
