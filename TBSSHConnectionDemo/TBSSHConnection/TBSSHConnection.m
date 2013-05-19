@@ -13,6 +13,8 @@ static NSString * const TBSSHTunnelObjectKeyDestinationPort = @"destinationport"
 static NSString * const TBSSHTunnelObjectKeyDestinationAddress = @"destinationaddress";
 static NSString * const TBSSHTunnelObjectKeyHostName = @"hostname";
 
+NSString * const TBSSHExitWithErrorNotification = @"TBSSHExitWithErrorNotification";
+
 @interface TBSSHConnection ()
 @property (nonatomic) NSString *user;
 @property (nonatomic) NSInteger port;
@@ -88,14 +90,13 @@ static NSString * const TBSSHTunnelObjectKeyHostName = @"hostname";
 
 - (void)execute
 {
-    
     if (!self.hostname || !self.user) {
 #if DEBUG
         NSLog(@"Please set user and hostname");
         return;
 #endif
     }
-
+    
     self.task = [[NSTask alloc] init];
 #if DEBUG
     [self.task setStandardOutput:[NSFileHandle fileHandleWithStandardOutput]];
@@ -106,10 +107,13 @@ static NSString * const TBSSHTunnelObjectKeyHostName = @"hostname";
 #endif
     [self.task setLaunchPath:@"/usr/bin/ssh"];
     [self.task setArguments:self.arguments];
+    
+    dispatch_queue_t queue =
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
-    [NSThread detachNewThreadSelector:@selector(runCommand)
-                             toTarget:self
-                           withObject:nil];
+    dispatch_async(queue, ^{
+        [self runCommand];
+    });
 }
 
 - (void)terminate
@@ -122,17 +126,26 @@ static NSString * const TBSSHTunnelObjectKeyHostName = @"hostname";
 
 - (void)runCommand
 {
-    [self.lock lock];
-    @try {
+    @autoreleasepool {
+        [self.lock lock];
         [self.task launch];
         [self.task waitUntilExit];
-    }
-    @finally {
+        int status = [self.task terminationStatus];
+        if (status == 255) {
+            // ssh exits with the exit status of the remote command or with 255
+            // if an error occurred. see $ man ssh
+            NSNotification *notification =
+            [NSNotification notificationWithName:TBSSHExitWithErrorNotification
+                                          object:self];
+            
+            NSNotificationCenter *notificationCenter =
+            [NSNotificationCenter defaultCenter];
+            
+            [notificationCenter postNotification:notification];
+        }
         [self.lock unlock];
-        [NSThread exit];
     }
 }
-
 
 - (BOOL)isRunning
 {

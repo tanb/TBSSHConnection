@@ -24,11 +24,28 @@
     self.sshConnection = [[TBSSHConnection alloc] initWithUser:nil hostname:nil port:22];
 
     [self.sshConnection execute];
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(handleExitWithErrorNotification:)
+                               name:TBSSHExitWithErrorNotification
+                             object:nil];
+    
+}
+
+- (void)handleExitWithErrorNotification:(NSNotification *)notification
+{
+    // This notification was sent if an instance of TBSSHConnection got a
+    // situation that ssh exit with status code 255.
+    NSLog(@"TBSSHConnection Exit: %@", notification.object);
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
     [self.sshConnection terminate];
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter removeObserver:self];
 }
 
 @end

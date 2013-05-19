@@ -26,3 +26,8 @@
 - (BOOL)isRunning;
 
 @end
+
+
+/* This notification was sent if an instance of TBSSHConnection got a situation that ssh exit with status code 255. According to `$ man ssh`, ssh exits with 255 if an error occurred.
+ */
+FOUNDATION_EXPORT NSString * const TBSSHExitWithErrorNotification;
