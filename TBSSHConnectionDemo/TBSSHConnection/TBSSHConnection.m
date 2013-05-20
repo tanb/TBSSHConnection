@@ -60,21 +60,12 @@ NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletion
     self.port = port;
     self.hostname = hostname;
     self.localForwards = @[].mutableCopy;
-    
     self.lock = nil;
-    self.pipe = [NSPipe new];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(readData:)
                                                  name:NSFileHandleReadCompletionNotification
                                                object:nil];
-    [[self.pipe fileHandleForReading] readInBackgroundAndNotify];
-
-    self.task = [NSTask new];
-    [self.task setLaunchPath:@"/usr/bin/ssh"];
-    [self.task setStandardOutput:self.pipe];
-    [self.task setStandardError:self.pipe];
-
     return self;
 }
 
@@ -131,6 +122,13 @@ NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletion
     
     if ([self isRunning]) [self terminate];
     
+    self.pipe = [NSPipe new];
+    [[self.pipe fileHandleForReading] readInBackgroundAndNotify];
+
+    self.task = [NSTask new];
+    [self.task setLaunchPath:@"/usr/bin/ssh"];
+    [self.task setStandardOutput:self.pipe];
+    [self.task setStandardError:self.pipe];
     [self.task setArguments:self.arguments];
     
     dispatch_queue_t queue =
