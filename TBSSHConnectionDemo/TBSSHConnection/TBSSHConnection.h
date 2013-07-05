@@ -13,6 +13,7 @@
 - (id)initWithUser:(NSString *)user
           hostname:(NSString *)hostname
               port:(NSInteger)port;
+- (id)initWithConfiguration:(NSDictionary *)configuration;
 
 
 - (void)addLocalForwardWithSourcePort:(NSInteger)source
@@ -25,6 +26,7 @@
 
 - (BOOL)isRunning;
 
+- (NSDictionary *)configuration;
 @end
 
 
@@ -34,3 +36,13 @@ FOUNDATION_EXPORT NSString * const TBSSHExitWithErrorNotification;
 /* This notification is posted when the instance of TBSSHConnection reads the data currently available at its ssh connection channel.
  */
 FOUNDATION_EXPORT NSString * const TBSSHReadLineCompletionNotification;
+
+FOUNDATION_EXPORT NSString * const TBSSHTunnelConfigurationKeySourcePort;
+FOUNDATION_EXPORT NSString * const TBSSHTunnelConfigurationKeyDestinationPort;
+FOUNDATION_EXPORT NSString * const TBSSHTunnelConfigurationKeyDestinationAddress;
+FOUNDATION_EXPORT NSString * const TBSSHTunnelConfigurationKeyHostName;
+
+FOUNDATION_EXPORT NSString * const TBSSHConfigurationKeyUsername;
+FOUNDATION_EXPORT NSString * const TBSSHConfigurationKeyPort;
+FOUNDATION_EXPORT NSString * const TBSSHConfigurationKeyHostname;
+FOUNDATION_EXPORT NSString * const TBSSHConfigurationKeyLocalForwards;

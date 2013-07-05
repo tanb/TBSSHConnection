@@ -8,13 +8,18 @@
 
 #import "TBSSHConnection.h"
 
-static NSString * const TBSSHTunnelObjectKeySourcePort = @"sourceport";
-static NSString * const TBSSHTunnelObjectKeyDestinationPort = @"destinationport";
-static NSString * const TBSSHTunnelObjectKeyDestinationAddress = @"destinationaddress";
-static NSString * const TBSSHTunnelObjectKeyHostName = @"hostname";
+NSString * const TBSSHTunnelConfigurationKeySourcePort = @"sourceport";
+NSString * const TBSSHTunnelConfigurationKeyDestinationPort = @"destinationport";
+NSString * const TBSSHTunnelConfigurationKeyDestinationAddress = @"destinationaddress";
+NSString * const TBSSHTunnelConfigurationKeyHostName = @"hostname";
 
 NSString * const TBSSHExitWithErrorNotification = @"TBSSHExitWithErrorNotification";
 NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletionNotification";
+
+NSString * const TBSSHConfigurationKeyUsername = @"user";
+NSString * const TBSSHConfigurationKeyPort = @"port";
+NSString * const TBSSHConfigurationKeyHostname = @"hostname";
+NSString * const TBSSHConfigurationKeyLocalForwards = @"localForwards";
 
 @interface TBSSHConnection ()
 @property (nonatomic) NSString *user;
@@ -33,9 +38,9 @@ NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletion
                       destinationPort:(NSInteger)destination
 {
     NSMutableDictionary *dict = @{}.mutableCopy;
-    dict[TBSSHTunnelObjectKeySourcePort] = @(source);
-    dict[TBSSHTunnelObjectKeyDestinationPort] = @(destination);
-    dict[TBSSHTunnelObjectKeyDestinationAddress] = address;
+    dict[TBSSHTunnelConfigurationKeySourcePort] = @(source);
+    dict[TBSSHTunnelConfigurationKeyDestinationPort] = @(destination);
+    dict[TBSSHTunnelConfigurationKeyDestinationAddress] = address;
     [self.localForwards addObject:dict];
 }
 
@@ -44,11 +49,39 @@ NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletion
                          destinationPort:(NSInteger)destination
 {
     NSMutableDictionary *dict = @{}.mutableCopy;
-    dict[TBSSHTunnelObjectKeySourcePort] = @(source);
-    dict[TBSSHTunnelObjectKeyDestinationPort] = @(destination);
-    dict[TBSSHTunnelObjectKeyDestinationAddress] = address;
+    dict[TBSSHTunnelConfigurationKeySourcePort] = @(source);
+    dict[TBSSHTunnelConfigurationKeyDestinationPort] = @(destination);
+    dict[TBSSHTunnelConfigurationKeyDestinationAddress] = address;
     
     [self.localForwards removeObject:dict];
+}
+
+- (NSDictionary *)configuration
+{
+    NSMutableDictionary *dict = @{}.mutableCopy;
+    dict[TBSSHConfigurationKeyUsername] = self.user;
+    dict[TBSSHConfigurationKeyHostname] = self.hostname;
+    dict[TBSSHConfigurationKeyPort] = @(self.port);
+    dict[TBSSHConfigurationKeyLocalForwards] = [self.localForwards copy];
+    
+    return dict;
+}
+
+- (id)initWithConfiguration:(NSDictionary *)configuration
+{
+    self = [super init];
+    if(!self) return nil;
+    self.lock = [NSLock new];
+    self.user = configuration[TBSSHConfigurationKeyUsername];
+    self.port = [configuration[TBSSHConfigurationKeyPort] intValue];
+    self.hostname = configuration[TBSSHConfigurationKeyHostname];
+    self.localForwards = ((NSArray *)configuration[TBSSHConfigurationKeyLocalForwards]).mutableCopy;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readData:)
+                                                 name:NSFileHandleReadCompletionNotification
+                                               object:nil];
+    return self;    
 }
 
 - (id)initWithUser:(NSString *)user hostname:(NSString *)hostname port:(NSInteger)port
@@ -60,7 +93,6 @@ NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletion
     self.port = port;
     self.hostname = hostname;
     self.localForwards = @[].mutableCopy;
-    self.lock = nil;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(readData:)
@@ -94,9 +126,9 @@ NSString * const TBSSHReadLineCompletionNotification = @"TBSSHReadLineCompletion
         for (NSDictionary *localForward in self.localForwards) {
             [args addObject:@"-L"];
             [args addObject:[NSString stringWithFormat:@"%d:%@:%d",
-                             [localForward[TBSSHTunnelObjectKeySourcePort] intValue],
-                             localForward[TBSSHTunnelObjectKeyDestinationAddress],
-                             [localForward[TBSSHTunnelObjectKeyDestinationPort] intValue]]];
+                             [localForward[TBSSHTunnelConfigurationKeySourcePort] intValue],
+                             localForward[TBSSHTunnelConfigurationKeyDestinationAddress],
+                             [localForward[TBSSHTunnelConfigurationKeyDestinationPort] intValue]]];
         }
     }
     
